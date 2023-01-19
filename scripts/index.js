@@ -19,7 +19,8 @@ const createTask = (taskName) => {
     .querySelector('.todo-item')
     .cloneNode(true);
 
-  task.querySelector('.todo-item__text').textContent = taskName;
+  const textElement =  task.querySelector('.todo-item__text');
+  textElement.textContent = taskName;
 
   const deleteBtn = task.querySelector('.todo-item__del');
   deleteBtn.addEventListener('click', () => {
@@ -29,6 +30,18 @@ const createTask = (taskName) => {
   const duplicateBtn = task.querySelector('.todo-item__copy');
   duplicateBtn.addEventListener('click', () => {
     renderTask(taskName);
+  });
+
+  const editTodo = () => {
+    textElement.contentEditable = false;
+    textElement.removeEventListener('blur',editTodo);
+  }
+
+  const editBtn = task.querySelector('.todo-item__edit');
+  editBtn.addEventListener('click', () => {
+    textElement.contentEditable = true;
+    textElement.focus();
+    textElement.addEventListener('blur', editTodo);
   });
 
   return task;
