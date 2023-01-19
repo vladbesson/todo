@@ -11,20 +11,13 @@ const todos = [
 const todoList = document.querySelector('.todos__list');
 const form = document.querySelector('.todo-form');
 const input = document.querySelector('.todo-form__input');
+const template = document.querySelector('#todo-item-template')
 
 const createTask = (taskName) => {
-  const template = `
-    <li class="todo-item">
-      <span class="todo-item__text"></span>
-      <button class="todo-item__edit"></button>
-      <button class="todo-item__copy"></button>
-      <button class="todo-item__del"></button>
-    </li>
-  `;
-
-  const container = document.createElement('div');
-  container.innerHTML = template;
-  const task = container.firstElementChild;
+  const task = template
+    .content
+    .querySelector('.todo-item')
+    .cloneNode(true);
 
   task.querySelector('.todo-item__text').textContent = taskName;
 
