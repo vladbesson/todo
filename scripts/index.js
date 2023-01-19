@@ -24,9 +24,21 @@ const createTask = (taskName) => {
 
   const container = document.createElement('div');
   container.innerHTML = template;
-  container.querySelector('.todo-item__text').textContent = taskName;
+  const task = container.firstElementChild;
 
-  return container.firstElementChild;
+  task.querySelector('.todo-item__text').textContent = taskName;
+
+  const deleteBtn = task.querySelector('.todo-item__del');
+  deleteBtn.addEventListener('click', () => {
+    task.remove();
+  });
+
+  const duplicateBtn = task.querySelector('.todo-item__copy');
+  duplicateBtn.addEventListener('click', () => {
+    renderTask(taskName);
+  });
+
+  return task;
 };
 
 const renderTask = (taskName) => {
