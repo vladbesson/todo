@@ -9,38 +9,39 @@ const todos = [
 ];
 
 const todoList = document.querySelector('.todos__list');
+const form = document.querySelector('.todo-form');
+const input = document.querySelector('.todo-form__input');
 
 const createTask = (taskName) => {
-  const li = document.createElement('li');
-  li.classList.add('todo-item');
+  const template = `
+    <li class="todo-item">
+      <span class="todo-item__text"></span>
+      <button class="todo-item__edit"></button>
+      <button class="todo-item__copy"></button>
+      <button class="todo-item__del"></button>
+    </li>
+  `;
 
-  const span = document.createElement('span');
-  span.classList.add('todo-item__text');
-  span.textContent = taskName;
+  const container = document.createElement('div');
+  container.innerHTML = template;
+  container.querySelector('.todo-item__text').textContent = taskName;
 
-  const buttonEdit = document.createElement('button');
-  buttonEdit.classList.add('todo-item__edit');
-
-  const buttonCopy = document.createElement('button');
-  buttonCopy.classList.add('todo-item__copy');
-
-  const buttonDel = document.createElement('button');
-  buttonDel.classList.add('todo-item__del');
-
-  li.append(span, buttonEdit, buttonCopy, buttonDel);
-
-  return li;
+  return container.firstElementChild;
 };
 
 const renderTask = (taskName) => {
   todoList.append(createTask(taskName));
 };
 
-
 todos.forEach((item) => {
   renderTask(item);
 });
 
+const formSubmitHandler = (evt) => {
+  evt.preventDefault();
+  const taskName = input.value;
+  renderTask(taskName);
+  input.value = '';
+}
 
-
-// todoList.innerHTML += '<p>TEST 2</p>';
+form.addEventListener('submit', formSubmitHandler);
