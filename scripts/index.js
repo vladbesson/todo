@@ -11,7 +11,14 @@ const todos = [
 const todoList = document.querySelector('.todos__list');
 const form = document.querySelector('.todo-form');
 const input = document.querySelector('.todo-form__input');
-const template = document.querySelector('#todo-item-template')
+const template = document.querySelector('#todo-item-template');
+
+const formSubmitHandler = (evt) => {
+  evt.preventDefault();
+  const taskName = input.value;
+  renderTask(taskName);
+  input.value = '';
+};
 
 const createTask = (taskName) => {
   const task = template
@@ -54,12 +61,5 @@ const renderTask = (taskName) => {
 todos.forEach((item) => {
   renderTask(item);
 });
-
-const formSubmitHandler = (evt) => {
-  evt.preventDefault();
-  const taskName = input.value;
-  renderTask(taskName);
-  input.value = '';
-}
 
 form.addEventListener('submit', formSubmitHandler);
