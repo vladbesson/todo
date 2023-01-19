@@ -4,6 +4,7 @@
   min-height: 100vh;
   background: black;
   font-family: 'Inter', sans-serif;
+  color: white;
 }
 
 .header__title {
